@@ -1,0 +1,29 @@
+name: 'VIVO 应用商店上传 app Action'
+description: 'VIVO 应用商店上传 app Action'
+author: 'weihongbin1 <1602586227@qq.com>'
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'
+inputs:
+  base_url:
+    description: 'vivo 接口具体查看文档 https://dev.vivo.com.cn/documentCenter/doc/327'
+    default: 'https://developer-api.vivo.com.cn/router/rest'
+    required: true
+  access_key:
+    description: 'access_key'
+    required: true
+  access_secret:
+    description: 'access_secret'
+    required: true
+  apk_file_path:
+    description: 'apk 文件路径'
+    required: true
+  update_desc:
+    description: '更新描述'
+    required: true
+  online_time:
+    description: '上线时间'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
