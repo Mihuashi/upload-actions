@@ -1,6 +1,6 @@
 ## 简介
 
-该 [GitHub Action](https://help.github.com/cn/actions) 用于上传 apk 文件到 小米 应用商店。
+该 [GitHub Action](https://help.github.com/cn/actions) 用于上传 apk 文件到 华为 应用商店。
 
 ## workflow 示例
 
@@ -82,13 +82,11 @@ jobs:
           echo "UpdateDesc: ${update_desc}"
           
       - name: Upload mi
-        uses: Mihuashi/upload-actions/mi@main
+        uses: Mihuashi/upload-actions/huawei@main
         with:
-          email: ${{ secrets.MI_EMAIL }}
-          password: ${{ secrets.MI_PASSWORD }}
-          public_key: ${{ secrets.MI_PUBLIC_KEY }}
-          package_name: "com.qixin.mihuas"
-          app_name: "米画师"
+          client_id: ${{ secrets.HUAWEI_CLIENT_ID }}
+          client_secret: ${{ secrets.HUAWEI_CLIENT_SECRET }}
+          app_id: 10871514
           apk_file_path: mhs/build/outputs/apk/release/mhs-release.apk
           update_desc: ${{steps.version.outputs.update_desc}}
           online_time: ${{steps.version.outputs.online_time}}
@@ -96,13 +94,11 @@ jobs:
 
 ## 相关参数
 
-| 参数 | 是否必传 | 备注         |
-| --- | --- |---|
-| email | 是 | email      |
-| password | 是 | 并非登录密码     |
-| public_key | 是 | 公钥内容并非文件路径 |
-| package_name | 是 | 包名         |
-| app_name | 是 | 应用名        |
-| apk_file_path | 是 | apk 文件路径   |
-| update_desc | 是 | 更新描述       |
-| online_time | 是 | 上线时间       |
+| 参数            | 是否必传 | 备注            |
+|---------------| --- |---------------|
+| client_id     | 是 | client_id     |
+| client_secret | 是 | client_secret |
+| app_id        | 是 | 应用id          |
+| apk_file_path | 是 | apk 文件路径      |
+| update_desc   | 是 | 更新描述          |
+| online_time   | 是 | 上线时间          |
