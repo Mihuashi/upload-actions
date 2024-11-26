@@ -1,0 +1,34 @@
+name: '小米 应用商店上传 app Action'
+description: '小米 应用商店上传 app Action 小米 接口具体查看文档 https://dev.mi.com/distribute/doc/details?pId=1134'
+author: 'weihongbin1 <1602586227@qq.com>'
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'
+inputs:
+  email:
+    description: 'email'
+    required: true
+  password:
+    description: '并非登录密码'
+    required: true
+  public_key:
+    description: '公钥内容并非文件路径'
+    required: true
+  package_name:
+    description: '包名'
+    required: true
+  app_name:
+    description: '应用名'
+    required: true
+  apk_file_path:
+    description: 'apk 文件路径'
+    required: true
+  update_desc:
+    description: '更新描述'
+    required: true
+  online_time:
+    description: '上线时间'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
