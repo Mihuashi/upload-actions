@@ -28,14 +28,10 @@ if UPDATE_DESC.blank?
   exit 1
 end
 ONLINE_TIME = ENV['INPUT_ONLINE_TIME']
-if ONLINE_TIME.blank?
-  puts 'INPUT_ONLINE_TIME is blank'
-  exit 1
-end
 
 ONLINE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 begin
-  Time.strptime(ONLINE_TIME, ONLINE_TIME_FORMAT)
+  Time.strptime(ONLINE_TIME, ONLINE_TIME_FORMAT) unless ONLINE_TIME.blank?
 rescue ArgumentError
   puts "INPUT_ONLINE_TIME format error, should be like: #{ONLINE_TIME_FORMAT}"
   exit 1
@@ -152,8 +148,10 @@ def update_app_info(apk_file, update_desc, sche_online_time, version_code)
   params[:business_mobile] = app_info['data']['business_mobile']
   params[:age_level] = app_info['data']['age_level']
   params[:adaptive_equipment] = app_info['data']['adaptive_equipment']
-  params[:online_type] = 2
-  params[:sche_online_time] = sche_online_time
+  params[:online_type] = sche_online_time.blank? ? 1 : 2
+  unless sche_online_time.blank?
+    params[:sche_online_time] = sche_online_time
+  end
   params = sign(params)
   HTTParty.post(url, body: params)
 end

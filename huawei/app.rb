@@ -32,14 +32,10 @@ if UPDATE_DESC.blank?
   exit 1
 end
 ONLINE_TIME = ENV['INPUT_ONLINE_TIME']
-if ONLINE_TIME.blank?
-  puts 'INPUT_ONLINE_TIME is blank'
-  exit 1
-end
 
 ONLINE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 begin
-  Time.strptime(ONLINE_TIME, ONLINE_TIME_FORMAT)
+  Time.strptime(ONLINE_TIME, ONLINE_TIME_FORMAT) unless ONLINE_TIME.blank?
 rescue ArgumentError
   puts "INPUT_ONLINE_TIME format error, should be like: #{ONLINE_TIME_FORMAT}"
   exit 1
@@ -161,12 +157,14 @@ def submit_release(sche_online_time)
     client_id: CLIENT_ID
   }
   time = Time.parse(sche_online_time).getlocal('+08:00')
-  releaseTime = time.strftime('%Y-%m-%dT%H:%M:%S%z')
+  release_time = time.strftime('%Y-%m-%dT%H:%M:%S%z')
   query = {
     appId: APP_ID,
-    releaseTime: releaseTime,
     releaseType: 1
   }
+  unless sche_online_time.blank?
+    query[:releaseTime] = release_time
+  end
   HTTParty.post(url, query: query, headers: headers)
 end
 

@@ -42,14 +42,10 @@ if UPDATE_DESC.blank?
   exit 1
 end
 ONLINE_TIME = ENV['INPUT_ONLINE_TIME']
-if ONLINE_TIME.blank?
-  puts 'INPUT_ONLINE_TIME is blank'
-  exit 1
-end
 
 ONLINE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 begin
-  Time.strptime(ONLINE_TIME, ONLINE_TIME_FORMAT)
+  Time.strptime(ONLINE_TIME, ONLINE_TIME_FORMAT) unless ONLINE_TIME.blank?
 rescue ArgumentError
   puts "INPUT_ONLINE_TIME format error, should be like: #{ONLINE_TIME_FORMAT}"
   exit 1
@@ -120,8 +116,10 @@ def push(apk_file, update_desc, sche_online_time)
     appName: APP_NAME,
     packageName: PACKAGE_NAME,
     updateDesc: update_desc,
-    onlineTime: online_time,
   }
+  unless sche_online_time.blank?
+    app_detail[:onlineTime] = online_time
+  end
   request_data = {
     userName: EMAIL,
     appInfo: app_detail.to_json,

@@ -23,7 +23,7 @@ inputs:
     required: true
   online_time:
     description: '上线时间'
-    required: true
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'

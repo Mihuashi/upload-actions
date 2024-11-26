@@ -95,10 +95,10 @@ jobs:
 ## 相关参数
 
 | 参数 | 是否必传 | 备注 |
-| --- | --- | --- |
+| --- |---| --- |
 | base_url | 是 | vivo 接口具体查看文档 https://dev.vivo.com.cn/documentCenter/doc/327 |
 | access_key | 是 | access_key |
 | access_secret | 是 | access_key |
 | apk_file_path | 是 | apk 文件路径 |
 | update_desc | 是 | 更新描述 |
-| online_time | 是 | 上线时间 |
+| online_time | 否 | 上线时间 |

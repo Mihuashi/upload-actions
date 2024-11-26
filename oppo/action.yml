@@ -19,7 +19,7 @@ inputs:
     required: true
   online_time:
     description: '上线时间'
-    required: true
+    required: false
   version_code:
     description: 'apk 版本号'
     required: true

@@ -31,14 +31,10 @@ if UPDATE_DESC.blank?
   exit 1
 end
 ONLINE_TIME = ENV['INPUT_ONLINE_TIME']
-if ONLINE_TIME.blank?
-  puts 'INPUT_ONLINE_TIME is blank'
-  exit 1
-end
 
 ONLINE_TIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 begin
-  Time.strptime(ONLINE_TIME, ONLINE_TIME_FORMAT)
+  Time.strptime(ONLINE_TIME, ONLINE_TIME_FORMAT) unless ONLINE_TIME.blank?
 rescue ArgumentError
   puts "INPUT_ONLINE_TIME format error, should be like: #{ONLINE_TIME_FORMAT}"
   exit 1
@@ -97,9 +93,11 @@ def sync_update_app(apk_file, update_desc, sche_online_time)
   params[:apk] = apk_info['data']['serialnumber']
   params[:fileMd5] = apk_info['data']['fileMd5']
   # 1 实时上架 2 定时上架
-  params[:onlineType] = 2
+  params[:onlineType] = sche_online_time.blank? ? 1 : 2
   # 上架时间，若onlineType   = 2，上架时间必填。格式：yyyy-MM-dd   HH:mm:ss
-  params[:scheOnlineTime] = sche_online_time
+  unless sche_online_time.blank?
+    params[:scheOnlineTime] = sche_online_time
+  end
   params[:updateDesc] = update_desc
   params[:sign] = cal_sign(params)
   HTTParty.post(VIVO_BASE_URL, body: params)

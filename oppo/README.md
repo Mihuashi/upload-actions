@@ -101,4 +101,4 @@ jobs:
 | client_secret | 是 | client_secret |
 | apk_file_path | 是 | apk 文件路径 |
 | update_desc | 是 | 更新描述 |
-| online_time | 是 | 上线时间 |
+| online_time | 否 | 上线时间 |
