@@ -44,7 +44,7 @@ rescue ArgumentError
   exit 1
 end
 
-
+puts "VIVO_BASE_URL: #{VIVO_BASE_URL} ACCESS_KEY: #{ACCESS_KEY} APK_FILE_PATH: #{APK_FILE_PATH} UPDATE_DESC: #{UPDATE_DESC} ONLINE_TIME: #{ONLINE_TIME}"
 
 def common_params
   {
@@ -57,7 +57,7 @@ def common_params
   }
 end
 
-def calSign(params)
+def cal_sign(params)
   params_map = params.sort.to_h
   params_str = params_map.map { |k, v| "#{k}=#{v}" }.join('&')
   secret_byte = ACCESS_SECRET.encode('UTF-8')
@@ -81,7 +81,7 @@ def upload_apk_app(apk_file)
   params[:method] = 'app.upload.apk.app'
   params[:packageName] = 'com.qixin.mihuas'
   params[:fileMd5] = Digest::MD5.file(apk_file).hexdigest
-  params[:sign] = calSign(params)
+  params[:sign] = cal_sign(params)
   params[:file] = File.open(apk_file)
   HTTParty.post(VIVO_BASE_URL, body: params)
 end
@@ -101,7 +101,7 @@ def sync_update_app(apk_file, update_desc, sche_online_time)
   # 上架时间，若onlineType   = 2，上架时间必填。格式：yyyy-MM-dd   HH:mm:ss
   params[:scheOnlineTime] = sche_online_time
   params[:updateDesc] = update_desc
-  params[:sign] = calSign(params)
+  params[:sign] = cal_sign(params)
   HTTParty.post(VIVO_BASE_URL, body: params)
 end
 

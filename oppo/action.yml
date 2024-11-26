@@ -1,0 +1,28 @@
+name: 'OPPO 应用商店上传 app Action'
+description: 'OPPO 应用商店上传 app Action oppo 接口具体查看文档 https://open.oppomobile.com/new/developmentDoc/info?id=10998'
+author: 'weihongbin1 <1602586227@qq.com>'
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'
+inputs:
+  client_id:
+    description: 'client_id'
+    required: true
+  client_secret:
+    description: 'client_secret'
+    required: true
+  apk_file_path:
+    description: 'apk 文件路径'
+    required: true
+  update_desc:
+    description: '更新描述'
+    required: true
+  online_time:
+    description: '上线时间'
+    required: true
+  version_code:
+    description: 'apk 版本号'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
